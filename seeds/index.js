@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
-const axios = require('axios');
 const cities = require('./cities');
 const { places, descriptors } = require('./seedHelpers');
-const Campground = require('../models/campground')
+const Campground = require('../models/campground');
 
-mongoose.connect("mongodb://localhost:27017/yelp-camp");
+mongoose.connect('mongodb://localhost:27017/yelp-camp');
 
 const db = mongoose.connection;
+
 db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", () => {
     console.log("Database connected");
@@ -14,21 +14,6 @@ db.once("open", () => {
 
 const sample = array => array[Math.floor(Math.random() * array.length)];
 
-//image generator
-
-async function image() {
-    try {
-        const resp = await axios.get('https://api.unsplash.com/photos/random', {
-            params: {
-                client_id: 'cRSDgb9tCmDExFpAFFOVcs9PFnTCkdsIvpgtkGrn_5A',
-                collections: 1114848,
-            },
-        })
-        return resp.data.urls.small
-    } catch (err) {
-        console.error(err)
-    }
-};
 
 const seedDB = async () => {
     await Campground.deleteMany({});
@@ -36,11 +21,22 @@ const seedDB = async () => {
         const random1000 = Math.floor(Math.random() * 1000);
         const price = Math.floor(Math.random() * 20) + 10;
         const camp = new Campground({
-            author: '66812daeb13cf626ffbe8587',
+            author: '5f5c330c2cd79d538f2c66d9',
             location: `${cities[random1000].city}, ${cities[random1000].state}`,
-            title: `${sample(descriptors)} ${sample(places)}`,image: await image() , description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae iusto cumque mollitia expedita commodi voluptas ullam, atque quis quaerat ratione quidem vero, rem vel voluptatibus nemo. Dolor explicabo eos iusto!',
-            price
-        });
+            title: `${sample(descriptors)} ${sample(places)}`,
+            description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam dolores vero perferendis laudantium, consequuntur voluptatibus nulla architecto, sit soluta esse iure sed labore ipsam a cum nihil atque molestiae deserunt!',
+            price,
+            images: [
+                {
+                    url: "https://res.cloudinary.com/dwescmh75/image/upload/v1721389042/YelpCamp/pv8gcbi1oqg9pcxlrecz.jpg",
+                    filename: "YelpCamp/pv8gcbi1oqg9pcxlrecz"
+                },
+                {
+                    url: "https://res.cloudinary.com/dwescmh75/image/upload/v1721389044/YelpCamp/ishurahpesdmfw0s6lz1.jpg",
+                    filename: "YelpCamp/ishurahpesdmfw0s6lz1"
+                }
+            ]
+        })
         await camp.save();
     }
 }
