@@ -3,6 +3,7 @@
 
 <div class="row">
     <div class="col-6">
+        <div id="map" style="width: 400px; height: 300px;"></div>
         <div id="campgroundCarousel" class="carousel slide" data-bs-ride="carousel">
             <% if(campground.images.length > 1) { %>
                 <div class="carousel-indicators">
@@ -112,3 +113,9 @@
         <% } %>
     </div>
 </div>
+<script>
+    const maptilerApiKey = '<%- process.env.MAPTILER_API_KEY %>';
+    const campground = <%- JSON.stringify(campground) %>;
+</script>
+
+<script src="/javascripts/showPageMap.js"></script>
