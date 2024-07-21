@@ -39,11 +39,12 @@ app.set('views', path.join(__dirname, 'views'))
 
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
+app.use(favicon(path.join(__dirname,'public','images','favicon.ico')));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(mongoSanitize({
     replaceWith: '_'
 }));
-app.use(favicon(path.join(__dirname,'public','images','favicon.ico')));
+
 app.use(helmet());
 
 const scriptSrcUrls = [
@@ -90,6 +91,7 @@ app.use(
                 "https://res.cloudinary.com/dwescmh75/",
                 "https://images.unsplash.com/",
                 "https://api.maptiler.com/",
+                "https://yelpcamp-7ags.onrender.com/public/images/favicon.ico",
             ],
             fontSrc: ["'self'", ...fontSrcUrls],
         },
