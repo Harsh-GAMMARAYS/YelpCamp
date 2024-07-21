@@ -15,6 +15,7 @@ const LocalStrategy = require('passport-local');
 const User = require('./models/user');
 const mongoSanitize = require('express-mongo-sanitize');
 const helmet = require('helmet');
+const favicon = require('serve-favicon');
 
 const userRoutes = require('./routes/users');
 const campgroundRoutes = require('./routes/campgrounds');
@@ -42,6 +43,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(mongoSanitize({
     replaceWith: '_'
 }));
+app.use(favicon(path.join(__dirname,'public','images','favicon.ico')));
 app.use(helmet());
 
 const scriptSrcUrls = [
