@@ -91,7 +91,7 @@ app.use(
                 "https://res.cloudinary.com/dwescmh75/",
                 "https://images.unsplash.com/",
                 "https://api.maptiler.com/",
-                "https://yelpcamp-7ags.onrender.com/public/images/favicon.ico",
+                "https://yelpcamp-7ags.onrender.com/images/favicon.ico",
             ],
             fontSrc: ["'self'", ...fontSrcUrls],
         },
